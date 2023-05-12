@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <Compile Remove="ProfileBusinessRules\**" />
+    <EmbeddedResource Remove="ProfileBusinessRules\**" />
+    <None Remove="ProfileBusinessRules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="ProfileBusinessRules\ProfileBusinessRules.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DataLayer">
+      <HintPath>ProfileBusinessRules\DataLayer\bin\Debug\net6.0\DataLayer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
