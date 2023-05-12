@@ -133,7 +133,7 @@ namespace Profile
 				Console.WriteLine("5 | Edit Course Year & Section");
 				Console.WriteLine("6 | Edit Location");
 				Console.WriteLine("0 | Go back");
-				Console.WriteLine("-------------------");
+				Console.WriteLine("--------------------");
 				GetUserInput();
 				
 				ProcessUserActionInEditProfileMenu();
