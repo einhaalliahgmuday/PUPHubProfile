@@ -4,17 +4,20 @@ using ProfileBusinessRules;
 namespace Profile
 {
 	internal class Program
-	{
+	{	
 		public static int input;
 		
-		static void Main(string[] args)
-		{
+		public static void Main(string[] args)
+		{	
 			ViewProfileMain();
 		}
 		
 		static void ViewProfileMain()
-        {
-			ProfileRules.ViewProfileInformation();
+        {	
+			//ProfileRules.ViewProfileInformation();
+			ProfileRules prof = new ProfileRules();
+			prof.DisplayProfile();
+			
             ShowMainMenu();
             ProcessUserActionInMainMenu();
         }

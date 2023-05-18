@@ -5,8 +5,48 @@ namespace ProfileBusinessRules;
 
 public class ProfileRules
 {	
+	public List <ProfileAccount> GetAllProfileAccounts()
+	{
+		InMemoryProfileData profileData = new InMemoryProfileData();
+		
+		return profileData.profileAccounts;
+	}
+	
+	public void DisplayProfile()
+	{
+		InMemoryProfileData profileData = new InMemoryProfileData();
+		profileData.CreateProfileAccounts();
+		
+		foreach(var account in profileData.profileAccounts)
+		{
+			if (account.username == "juandelacruz")
+			{
+				Console.WriteLine("{0}	{1}", account.name, account.genderPronouns);
+				Console.WriteLine(account.username);
+				Console.WriteLine(account.rating);
+
+				Console.WriteLine();
+
+				Console.WriteLine(account.bio);
+
+				Console.WriteLine();
+				
+				Console.WriteLine(" Following	 Followers");
+				
+				Console.WriteLine();
+
+				Console.WriteLine("About: ");
+				Console.WriteLine("Student of {0}", account.courYrSec);
+				Console.WriteLine("Lives in {0}", account.location);
+
+				Console.WriteLine();
+				Console.WriteLine();
+			}
+		}
+	}
+
 	public static void ViewProfileInformation()
-        {
+    {
             Console.WriteLine("{0}	{1}", User.name, User.gender);
             Console.WriteLine(User.username);
             Console.WriteLine(User.rating);
