@@ -7,7 +7,6 @@ namespace Profile
 	{	
 		public static int input;
 		public static string username = "juandelacruz";
-		
 		public static ProfileRules profile = new ProfileRules();
 		
 		public static void Main(string[] args)
@@ -17,8 +16,7 @@ namespace Profile
 		
 		static void ViewProfileMain()
         {	
-			profile.DisplayProfile(username);
-			
+			profile.DisplayProfile(username);	
             ShowMainMenu();
             ProcessUserActionInMainMenu();
         }
@@ -100,14 +98,12 @@ namespace Profile
                     profile.GenerateProfileLink(username);
                     
 					GoBack();
-                    ShowOptionsMenu();
 					
                     break;
                 case 2:
                     
 					
 					GoBack();
-                    ShowOptionsMenu();
 
                     break;
             }
@@ -197,7 +193,7 @@ namespace Profile
 					profile.DisplayProfile(profileUsername);
 					
 					GoBack();
-					ShowViewFollowsMenu();
+					// ShowViewFollowsMenu();
 					
 					break;
 			}
