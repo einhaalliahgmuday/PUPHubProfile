@@ -4,6 +4,16 @@ public class InMemoryProfileData
 {
 	public List <ProfileAccount> profileAccounts = new List <ProfileAccount>();
 	
+	public List <ProfileAccount> GetProfileAccounts()
+	{
+		return profileAccounts;
+	}
+	
+	public InMemoryProfileData()
+	{
+		CreateProfileAccounts();
+	}
+	
 	public void CreateProfileAccounts() 
 	{
 		ProfileAccount user = new ProfileAccount
@@ -78,5 +88,16 @@ public class InMemoryProfileData
 		profileAccounts.Add(profile4);
 		profileAccounts.Add(profile5);
 		profileAccounts.Add(profile6);
+		
+		user.followers.Add(profile2);
+		user.followers.Add(profile3);
+		user.followers.Add(profile4);
+		user.followers.Add(profile5);
+		user.followers.Add(profile6);
+		
+		user.following.Add(profile2);
+		user.following.Add(profile4);
+		user.following.Add(profile5);
+		user.following.Add(profile6);
 	}
 }

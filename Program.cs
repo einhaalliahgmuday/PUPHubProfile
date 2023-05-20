@@ -6,6 +6,9 @@ namespace Profile
 	internal class Program
 	{	
 		public static int input;
+		public static string username = "juandelacruz";
+		
+		public static ProfileRules profile = new ProfileRules();
 		
 		public static void Main(string[] args)
 		{	
@@ -14,9 +17,7 @@ namespace Profile
 		
 		static void ViewProfileMain()
         {	
-			//ProfileRules.ViewProfileInformation();
-			ProfileRules prof = new ProfileRules();
-			prof.DisplayProfile();
+			profile.DisplayProfile(username);
 			
             ShowMainMenu();
             ProcessUserActionInMainMenu();
@@ -51,23 +52,11 @@ namespace Profile
 				
                     break;
                 case 3:
-					ProfileRules.ViewFollowing();
-					
-					Console.WriteLine();
-					Console.WriteLine();
-					
-					GoBack();
-					ViewProfileMain();
+					ViewFollowing();
 					
                     break;
                 case 4:
-					ProfileRules.ViewFollowers();
-					
-					Console.WriteLine();
-					Console.WriteLine();
-					
-					GoBack();
-					ViewProfileMain();
+					ViewFollowers();
 					
                     break;
                 case 5:
@@ -108,7 +97,7 @@ namespace Profile
 
                     break;
                 case 1:
-                    ProfileRules.GenerateProfileLink();
+                    profile.GenerateProfileLink(username);
                     
 					GoBack();
                     ShowOptionsMenu();
@@ -129,12 +118,8 @@ namespace Profile
 			while (input != 0) 
 			{
 				Console.WriteLine("----EDIT PROFILE----");
-				Console.WriteLine("1 | Edit Name");
-				Console.WriteLine("2 | Edit Username");
-				Console.WriteLine("3 | Edit Gender Pronouns");
-				Console.WriteLine("4 | Edit Bio");
-				Console.WriteLine("5 | Edit Course Year & Section");
-				Console.WriteLine("6 | Edit Location");
+				Console.WriteLine("1 | Edit Gender Pronouns");
+				Console.WriteLine("2 | Edit Bio");
 				Console.WriteLine("0 | Go back");
 				Console.WriteLine("--------------------");
 				GetUserInput();
@@ -147,38 +132,75 @@ namespace Profile
 		}
 		
 		static void ProcessUserActionInEditProfileMenu()
-		{
+		{	
 				switch (input)
 				{
 					case 0:
 						ViewProfileMain();
 						
 						break;
-                    case 1:
-                        ProfileRules.UpdateProfile("Name");
-
-                        break;
-                    case 2:
-						ProfileRules.UpdateProfile("Username");
+					case 1:
+						profile.EditProfileInformation("Gender Pronouns", username);
 						
 						break;
-					case 3:
-						ProfileRules.UpdateProfile("Gender Pronouns");
+					case 2:
+						profile.EditProfileInformation("Bio", username);
 						
-						break;
-					case 4:
-						ProfileRules.UpdateProfile("Bio");
-						
-						break;
-					case 5:
-						ProfileRules.UpdateProfile("Course, Year & Section");
-						
-						break;
-					case 6:
-						ProfileRules.UpdateProfile("Location");
-					
 						break;
 				}
+		}
+		
+		static void ViewFollowing()
+		{
+			profile.DisplayFollowingList(username);
+			ShowViewFollowsMenu();
+		}
+		
+		static void ViewFollowers()
+		{
+			profile.DisplayFollowersList(username);
+			ShowViewFollowsMenu();
+		}
+		
+		static void ShowViewFollowsMenu()
+		{
+			while (input != 0) 
+			{
+				Console.WriteLine("--FOLLOW MENU---");
+				Console.WriteLine("1 | Search");
+				Console.WriteLine("0 | Go back");
+				Console.WriteLine("----------------");
+				GetUserInput();
+				
+				ProcessUserActionInFollowsMenu();
+				
+				Console.WriteLine();
+				Console.WriteLine();
+			}
+		}
+		
+		static void ProcessUserActionInFollowsMenu()
+		{
+			switch (input)
+			{
+				case 0:
+					ViewProfileMain();
+					
+					break;
+				case 1:
+					Console.Write("Enter profile username to view: ");
+					string profileUsername = Console.ReadLine();
+					
+					Console.WriteLine();
+					Console.WriteLine();
+					
+					profile.DisplayProfile(profileUsername);
+					
+					GoBack();
+					ShowViewFollowsMenu();
+					
+					break;
+			}
 		}
 		
 		static int GetUserInput()
