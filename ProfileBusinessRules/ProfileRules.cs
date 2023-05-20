@@ -5,10 +5,10 @@ namespace ProfileBusinessRules;
 
 public class ProfileRules
 {
+	InMemoryProfileData profileData = new InMemoryProfileData();
+	
 	public List<ProfileAccount> GetAllProfileAccounts()
 	{
-			InMemoryProfileData profileData = new InMemoryProfileData();
-			
 			return profileData.GetProfileAccounts();
 	}
 	
@@ -32,11 +32,6 @@ public class ProfileRules
 	{
 		ProfileAccount account = GetProfileAccountByUsername(username);
 		
-		// int index = GetProfileAccountIndex(username);
-		// InMemoryProfileData profileDataa = new InMemoryProfileData();
-		
-		// Console.WriteLine(profileDataa.profileAccounts[index].genderPronouns);
-		
 		Console.WriteLine("{0}	{1}", account.name, account.genderPronouns);
 		Console.WriteLine(account.username);
 		Console.WriteLine(account.rating);
@@ -59,59 +54,26 @@ public class ProfileRules
 		Console.WriteLine();
 	}
 	
-	// public void EditProfileInformation(string information, string username)
-	// {
-		// var allProfileAccounts = GetAllProfileAccounts();
-		
-		// foreach (var account in allProfileAccounts)
-		// {
-			// if (username == account.username)
-			// {
-				// if (information == "Gender Pronouns")
-				// {
-					// Console.Write("Enter updated {0}: ", information);
-					// account.username = Console.ReadLine();
-				// }
-				// else if (information == "Bio")
-				// {
-					// Console.Write("Enter updated {0}: ", information);
-					// account.bio = Console.ReadLine();
-				// }
-			// }
-		// }
-	// }
-	
-	public int GetProfileAccountIndex(string username)
+	public void EditProfileInformation(string information, string username)
 	{
 		var allProfileAccounts = GetAllProfileAccounts();
-		int index = 0;
 		
 		foreach (var account in allProfileAccounts)
 		{
 			if (username == account.username)
 			{
-				break;
+				if (information == "Gender Pronouns")
+				{
+					Console.Write("Enter updated {0}: ", information);
+					account.genderPronouns = Console.ReadLine();
+				}
+				else if (information == "Bio")
+				{
+					Console.Write("Enter updated {0}: ", information);
+					account.bio = Console.ReadLine();
+				}
 			}
-			index++;
 		}
-		
-		return index;
-	}
-
-	public void EditProfileInformation(string information, string username)
-	{
-		int index = GetProfileAccountIndex(username);
-		InMemoryProfileData profileData = new InMemoryProfileData();
-		
-		// Console.WriteLine(index);
-		
-		if (information == "Gender Pronouns")
-		{
-			Console.Write("Enter updated {0}: ", information);
-			profileData.profileAccounts[index].genderPronouns = Console.ReadLine();
-		}
-		
-		// Console.WriteLine(profileDataa.profileAccounts[index].genderPronouns);
 	}
 	
 	public void DisplayFollowingList(string username)
