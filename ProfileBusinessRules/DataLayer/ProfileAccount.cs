@@ -1,4 +1,4 @@
-﻿namespace DataLayer;
+namespace DataLayer;
 
 public class ProfileAccount
 {
@@ -9,7 +9,14 @@ public class ProfileAccount
 	public string bio {get; set;}
 	public string courYrSec {get; set;}
 	public string location {get; set;}
-	
-	public List <ProfileAccount> followers = new List <ProfileAccount>();
-	public List <ProfileAccount> following = new List <ProfileAccount>();
+
+    public FollowData follows { get; set; } = new FollowData();
 }
+public class FollowData
+{
+    public List<ProfileAccount> followers = new List<ProfileAccount>();
+    public List<ProfileAccount> following = new List<ProfileAccount>();
+}
+
+    
+

@@ -31,7 +31,7 @@ public class ProfileRules
 	public void DisplayProfile(string username)
 	{
 		ProfileAccount account = GetProfileAccountByUsername(username);
-		
+
 		Console.WriteLine("{0}	{1}", account.name, account.genderPronouns);
 		Console.WriteLine(account.username);
 		Console.WriteLine(account.rating);
@@ -42,7 +42,7 @@ public class ProfileRules
 
 		Console.WriteLine();
 				
-		Console.WriteLine(" Following	 Followers");
+		Console.WriteLine("{0} Following	 {1} Followers", account.follows.following.Count, account.follows.followers.Count);
 				
 		Console.WriteLine();
 
@@ -79,10 +79,10 @@ public class ProfileRules
 	public void DisplayFollowingList(string username)
 	{
 		ProfileAccount account = GetProfileAccountByUsername(username);
-		
+
 		Console.WriteLine("FOLLOWING: ");
 		
-		foreach (var follows in account.following)
+		foreach (var follows in account.follows.following)
 		{
 			Console.WriteLine("{0}   	{1}", follows.name, follows.username);
 		}
@@ -94,10 +94,10 @@ public class ProfileRules
 	public void DisplayFollowersList(string username)
 	{
 		ProfileAccount account = GetProfileAccountByUsername(username);
-		
+
 		Console.WriteLine("FOLLOWERS: ");
 		
-		foreach (var follows in account.followers)
+		foreach (var follows in account.follows.followers)
 		{
 			Console.WriteLine("{0}   		{1}", follows.name, follows.username);
 		}
