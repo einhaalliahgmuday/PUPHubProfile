@@ -146,13 +146,14 @@ public class InMemoryProfileData
 		           profile5.follows.followers.Add(user);
 		           profile5.follows.followers.Add(profile3);
 		
-	                 //profile6 Followers
-	            	 profile6.follows.followers.Add(user);
-		             profile6.follows.followers.Add(profile2);
 	   
 	                 //profile6 Following
 		             profile6.follows.following.Add(user);
 		             profile6.follows.following.Add(profile2);
 		             profile6.follows.following.Add(profile4);
+
+					 //profile6 Followers
+	            	 profile6.follows.followers.Add(user);
+		             profile6.follows.followers.Add(profile2);
 	}
 }
