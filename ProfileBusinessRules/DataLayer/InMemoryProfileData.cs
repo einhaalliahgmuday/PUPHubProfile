@@ -2,7 +2,7 @@
 
 public class InMemoryProfileData
 {
-	public List <ProfileAccount> profileAccounts = new List <ProfileAccount>();
+	private List <ProfileAccount> profileAccounts = new List <ProfileAccount>();
 	
 	public List <ProfileAccount> GetProfileAccounts()
 	{
