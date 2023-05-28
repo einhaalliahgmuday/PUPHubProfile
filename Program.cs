@@ -5,29 +5,20 @@ using ProfileDataModels;
 namespace Profile
 {
 	internal class Program
-	{
+	{	
 		public static int input;
-<<<<<<< Updated upstream
-=======
 		public static string username = "juandelacruz";
 		public static string updatedInformation;
-		
 		public static ProfileRules profile = new ProfileRules();
->>>>>>> Stashed changes
 		
-		static void Main(string[] args)
-		{
+		public static void Main(string[] args)
+		{	
 			ViewProfileMain();
 		}
 		
 		static void ViewProfileMain()
-<<<<<<< Updated upstream
-        {
-			ProfileRules.ViewProfileInformation();
-=======
         {	
 			DisplayProfile(username);	
->>>>>>> Stashed changes
             ShowMainMenu();
             ProcessUserActionInMainMenu();
         }
@@ -87,23 +78,11 @@ namespace Profile
 				
                     break;
                 case 3:
-					ProfileRules.ViewFollowing();
-					
-					Console.WriteLine();
-					Console.WriteLine();
-					
-					GoBack();
-					ViewProfileMain();
+					ViewFollowing();
 					
                     break;
                 case 4:
-					ProfileRules.ViewFollowers();
-					
-					Console.WriteLine();
-					Console.WriteLine();
-					
-					GoBack();
-					ViewProfileMain();
+					ViewFollowers();
 					
                     break;
                 case 5:
@@ -144,24 +123,18 @@ namespace Profile
 
                     break;
                 case 1:
-<<<<<<< Updated upstream
-                    ProfileRules.GenerateProfileLink();
-=======
                     string profileLink = profile.GenerateProfileLink(username);
 					Console.WriteLine("Your profile link: {0}", profileLink);
 					
 					Console.WriteLine();
->>>>>>> Stashed changes
                     
 					GoBack();
-                    ShowOptionsMenu();
 					
                     break;
                 case 2:
                     
 					
 					GoBack();
-                    ShowOptionsMenu();
 
                     break;
             }
@@ -172,12 +145,8 @@ namespace Profile
 			while (input != 0) 
 			{
 				Console.WriteLine("----EDIT PROFILE----");
-				Console.WriteLine("1 | Edit Name");
-				Console.WriteLine("2 | Edit Username");
-				Console.WriteLine("3 | Edit Gender Pronouns");
-				Console.WriteLine("4 | Edit Bio");
-				Console.WriteLine("5 | Edit Course Year & Section");
-				Console.WriteLine("6 | Edit Location");
+				Console.WriteLine("1 | Edit Gender Pronouns");
+				Console.WriteLine("2 | Edit Bio");
 				Console.WriteLine("0 | Go back");
 				Console.WriteLine("--------------------");
 				GetUserInput();
@@ -190,25 +159,13 @@ namespace Profile
 		}
 		
 		static void ProcessUserActionInEditProfileMenu()
-		{
+		{	
 				switch (input)
 				{
 					case 0:
 						ViewProfileMain();
 						
 						break;
-<<<<<<< Updated upstream
-                    case 1:
-                        ProfileRules.UpdateProfile("Name");
-
-                        break;
-                    case 2:
-						ProfileRules.UpdateProfile("Username");
-						
-						break;
-					case 3:
-						ProfileRules.UpdateProfile("Gender Pronouns");
-=======
 					case 1:
 						updatedInformation = GetUpdatedInformation("Gender Pronouns");
 						profile.EditProfileInformation(username, "Gender Pronouns", updatedInformation);
@@ -217,26 +174,11 @@ namespace Profile
 					case 2:
 						updatedInformation = GetUpdatedInformation("Bio");
 						profile.EditProfileInformation(username, "Bio", updatedInformation);
->>>>>>> Stashed changes
 						
-						break;
-					case 4:
-						ProfileRules.UpdateProfile("Bio");
-						
-						break;
-					case 5:
-						ProfileRules.UpdateProfile("Course, Year & Section");
-						
-						break;
-					case 6:
-						ProfileRules.UpdateProfile("Location");
-					
 						break;
 				}
 		}
 		
-<<<<<<< Updated upstream
-=======
 		static string GetUpdatedInformation(string information)
 		{
 			Console.Write("Enter updated {0}: ", information);
@@ -298,7 +240,6 @@ namespace Profile
 			}
 		}
 		
->>>>>>> Stashed changes
 		static int GetUserInput()
         {
             Console.Write("Your input: ");
