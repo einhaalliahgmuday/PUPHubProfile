@@ -1,19 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Remove="ProfileBusinessRules\**" />
-    <EmbeddedResource Remove="ProfileBusinessRules\**" />
-    <None Remove="ProfileBusinessRules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="ProfileBusinessRules\ProfileBusinessRules.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="DataLayer">
-      <HintPath>ProfileBusinessRules\DataLayer\bin\Debug\net6.0\DataLayer.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="ProfileDataModels\ProfileDataModels.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

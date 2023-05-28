@@ -5,12 +5,6 @@
       <HintPath>..\ProfileDataModels\bin\Debug\net6.0\ProfileDataModels.dll</HintPath>
     </Reference>
   </ItemGroup>
-  
-  <ItemGroup>
-    <Reference Include="ProfileDataLayer">
-      <HintPath>..\ProfileDataLayer\bin\Debug\net6.0\ProfileDataLayer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
