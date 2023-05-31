@@ -49,36 +49,6 @@ public class ProfileRules
 		}
 	}
 	
-	public void DisplayFollowingList(string username)
-	{
-		ProfileAccount account = GetProfileAccountByUsername(username);
-		
-		Console.WriteLine("FOLLOWING: ");
-		
-		foreach (var follows in account.following)
-		{
-			Console.WriteLine("{0}   	{1}", follows.name, follows.username);
-		}
-		
-		Console.WriteLine();
-		Console.WriteLine();
-	}
-	
-	public void DisplayFollowersList(string username)
-	{
-		ProfileAccount account = GetProfileAccountByUsername(username);
-		
-		Console.WriteLine("FOLLOWERS: ");
-		
-		foreach (var follows in account.followers)
-		{
-			Console.WriteLine("{0}   		{1}", follows.name, follows.username);
-		}
-		
-		Console.WriteLine();
-		Console.WriteLine();
-	}
-	
 	public string GenerateProfileLink(string username)
 	{
 		ProfileAccount account = GetProfileAccountByUsername(username);
