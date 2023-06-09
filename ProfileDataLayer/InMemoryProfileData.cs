@@ -91,15 +91,59 @@ public class InMemoryProfileData
 		profileAccounts.Add(profile5);
 		profileAccounts.Add(profile6);
 		
+		user.following.Add(profile3);
+		user.following.Add(profile5);
+		user.following.Add(profile2);
+		user.following.Add(profile6);
+
 		user.followers.Add(profile2);
 		user.followers.Add(profile3);
 		user.followers.Add(profile4);
 		user.followers.Add(profile5);
 		user.followers.Add(profile6);
 		
-		user.following.Add(profile2);
-		user.following.Add(profile4);
-		user.following.Add(profile5);
-		user.following.Add(profile6);
+		profile2.following.Add(profile3);
+		profile2.following.Add(profile5);
+		profile2.following.Add(profile6);
+
+		profile2.followers.Add(profile3);
+		profile2.followers.Add(profile4);
+		profile2.followers.Add(profile5);
+		profile2.followers.Add(profile6);
+		
+		profile3.following.Add(profile5);
+		profile3.following.Add(profile2);
+
+		profile3.followers.Add(profile2);
+		profile3.followers.Add(profile4);
+		profile3.followers.Add(profile5);
+		profile3.followers.Add(profile6);
+		
+		profile4.following.Add(profile3);
+		profile4.following.Add(profile5);
+		profile4.following.Add(profile2);
+		profile4.following.Add(profile6);
+
+		profile4.followers.Add(profile2);
+		profile4.followers.Add(profile3);
+		profile4.followers.Add(profile5);
+		profile4.followers.Add(profile6);
+		
+		profile5.following.Add(profile3);
+		profile5.following.Add(profile2);
+		profile5.following.Add(profile6);
+
+		profile5.followers.Add(profile2);
+		profile5.followers.Add(profile3);
+		profile5.followers.Add(profile6);
+		
+		profile6.following.Add(profile3);
+		profile6.following.Add(profile5);
+		profile6.following.Add(profile2);
+
+		profile6.followers.Add(profile2);
+		profile6.followers.Add(profile3);
+		profile6.followers.Add(profile4);
+		profile6.followers.Add(profile5);
 	}
 }

@@ -7,6 +7,8 @@ namespace ProfileBusinessRules;
 public class ProfileRules
 {
 	InMemoryProfileData profileData = new InMemoryProfileData();
+	AccountPrivacy accountPrivacy;
+	FollowStatus followStatus;
 	
 	public List<ProfileAccount> GetAllProfileAccounts()
 	{
@@ -55,6 +57,27 @@ public class ProfileRules
 		string profileLink = "https://www.puphub.com/" + account.username;
 		
 		return profileLink;
+	}
+	
+	public FollowStatus CheckFollowStatus(string username, string profileUsername) 
+	{	
+		ProfileAccount account = GetProfileAccountByUsername(username);
+		
+		foreach (var acc in account.followers)
+		{
+			if (acc.username.Contains(profileUsername))
+			{
+				followStatus = FollowStatus.Following;
+				
+				break;
+			}
+			else 
+			{
+				followStatus = FollowStatus.NotFollowing;
+			}
+		}
+		
+		return followStatus;
 	}
 
 }

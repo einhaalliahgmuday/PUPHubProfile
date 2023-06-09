@@ -216,6 +216,20 @@ namespace Profile
 					
 					break;
 				case 1:
+					Console.Write("Search: ");
+					string search = Console.ReadLine();
+					
+					MakeSpace();
+					
+					var allProfileAccounts = profile.GetAllProfileAccounts();
+					
+					foreach (var account in allProfileAccounts)
+					{
+						if (account.username.Contains(search)) 
+						{
+							Console.WriteLine("{0}   		{1}", account.name, account.username);
+						}
+					}
 					
 					GoBack();
 					
@@ -227,7 +241,68 @@ namespace Profile
 					MakeSpace();
 					DisplayProfile(profileUsername);
 					
+					MakeSpace();
+					ShowViewOthersProfileMenu(profileUsername);
+					
 					GoBack();
+					
+					break;
+			}
+		}
+		
+		static void ShowViewOthersProfileMenu(string profileUsername)
+		{
+			FollowStatus followStatus = profile.CheckFollowStatus(username, profileUsername); 
+			
+			switch (followStatus)
+			{
+				case FollowStatus.Following:
+					Console.WriteLine("-------MENU-------");
+					Console.WriteLine("1 | Unfollow");
+					Console.WriteLine("2 | Message");
+					Console.WriteLine("3 | View Timeline");
+					Console.WriteLine("4 | Options");
+					Console.WriteLine("0 | Go Back");
+					Console.WriteLine("------------------");
+					GetUserInput();
+					
+					break;
+				case FollowStatus.NotFollowing:
+					Console.WriteLine("-----MENU-----");
+					Console.WriteLine("1 | Follow");
+					Console.WriteLine("2 | Message");
+					Console.WriteLine("3 | View Timeline");
+					Console.WriteLine("4 | Options");
+					Console.WriteLine("0 | Go Back");
+					Console.WriteLine("------------------");
+					GetUserInput();
+					
+					break;
+			}
+		}
+		
+		static void ProcessUserActionInViewOthersProfileMenu()
+		{
+			switch (input)
+			{
+				case 0:
+					
+					
+					break;
+				case 1:
+					
+					
+					break;
+				case 2:
+					
+					
+					break;
+				case 3:
+					
+					
+					break;
+				case 4:
+					
 					
 					break;
 			}
@@ -271,9 +346,6 @@ namespace Profile
         {
             Console.Write("Your input: ");
             input = Convert.ToInt32(Console.ReadLine());
-			
-			// Console.WriteLine();
-			// Console.WriteLine();
 
             return input;
         }
