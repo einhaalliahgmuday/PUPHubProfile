@@ -31,7 +31,7 @@ namespace Profile
 			
 			Console.WriteLine("{0}	{1}", account.name, account.genderPronouns);
 			Console.WriteLine(account.username);
-			Console.WriteLine(account.rating);
+			Console.WriteLine("{0}	Joined ", account.rating);
 
 			Console.WriteLine();
 
