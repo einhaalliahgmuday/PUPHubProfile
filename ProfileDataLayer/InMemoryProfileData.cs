@@ -1,4 +1,5 @@
-﻿using ProfileDataModels;
+﻿using System;
+using ProfileDataModels;
 
 namespace ProfileDataLayer;
 
@@ -24,9 +25,11 @@ public class InMemoryProfileData
 			username = "juandelacruz",
 			genderPronouns = "he/him",
 			rating = "5.0 *****",
+			dateJoined = new DateTime(2023, 5, 26),
 			bio = "Nothing lasts forever, we can change the future.	- Alucard",
 			courYrSec = "BSIT 2-1",
-			location = "Binan City, Laguna"
+			location = "Binan City, Laguna",
+			accountPrivacy = AccountPrivacy.Public
 		};
 		
 		ProfileAccount profile2 = new ProfileAccount
@@ -35,9 +38,11 @@ public class InMemoryProfileData
 			username = "einhaalliahgmuday",
 			genderPronouns = "she/her",
 			rating = "5.0 *****",
+			dateJoined = new DateTime(2023, 6, 9),
 			bio = "Live well.",
 			courYrSec = "BSIT 2-1",
-			location = "Binan City, Laguna"
+			location = "Binan City, Laguna",
+			accountPrivacy = AccountPrivacy.Private
 		};
 		
 		ProfileAccount profile3 = new ProfileAccount
@@ -46,9 +51,11 @@ public class InMemoryProfileData
 			username = "BSIT2-1_DanicaMalana",
 			genderPronouns = "she/her",
 			rating = "5.0 *****",
+			dateJoined = new DateTime(2023, 5, 26),
 			bio = "227",
 			courYrSec = "BSIT 2-1",
-			location = "Cabuyao City, Laguna"
+			location = "Cabuyao City, Laguna",
+			accountPrivacy = AccountPrivacy.Public
 		};
 		
 		ProfileAccount profile4 = new ProfileAccount
@@ -57,9 +64,11 @@ public class InMemoryProfileData
 			username = "BSIT2-1_SarahMichelleOrejo",
 			genderPronouns = "she/her",
 			rating = "5.0 *****",
+			dateJoined = new DateTime(2023, 5, 26),
 			bio = "Sarah",
 			courYrSec = "BSIT 2-1",
-			location = "Binan City, Laguna"
+			location = "Binan City, Laguna",
+			accountPrivacy = AccountPrivacy.Public
 		};
 		
 		ProfileAccount profile5 = new ProfileAccount
@@ -68,9 +77,11 @@ public class InMemoryProfileData
 			username = "BSIT2-1_AndreaBalaba",
 			genderPronouns = "she/her",
 			rating = "5.0 *****",
+			dateJoined = new DateTime(2023, 5, 26),
 			bio = "cute",
 			courYrSec = "BSIT 2-1",
-			location = "Binan City, Laguna"
+			location = "Binan City, Laguna",
+			accountPrivacy = AccountPrivacy.Public
 		};
 		
 		ProfileAccount profile6 = new ProfileAccount
@@ -79,9 +90,11 @@ public class InMemoryProfileData
 			username = "_RazellMaeQuitalig",
 			genderPronouns = "she/her",
 			rating = "5.0 *****",
+			dateJoined = new DateTime(2023, 5, 26),
 			bio = "rzllq",
 			courYrSec = "BSIT 2-1",
-			location = "Binan City, Laguna"
+			location = "Binan City, Laguna",
+			accountPrivacy = AccountPrivacy.Public
 		};
 		
 		profileAccounts.Add(user);

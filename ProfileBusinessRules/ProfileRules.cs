@@ -12,13 +12,13 @@ public class ProfileRules
 	
 	public List<ProfileAccount> GetAllProfileAccounts()
 	{
-			return profileData.GetProfileAccounts();
+		return profileData.GetProfileAccounts();
 	}
 	
 	public ProfileAccount GetProfileAccountByUsername(string username)
 	{
 		var allProfileAccounts = GetAllProfileAccounts();
-		ProfileAccount foundAccount = new ProfileAccount();
+		var foundAccount = new ProfileAccount();
 		
 		foreach (var account in allProfileAccounts)
 		{
@@ -59,13 +59,28 @@ public class ProfileRules
 		return profileLink;
 	}
 	
-	public FollowStatus CheckFollowStatus(string username, string profileUsername) 
-	{	
-		ProfileAccount account = GetProfileAccountByUsername(username);
+	public List<ProfileAccount> Search(string search, List<ProfileAccount> accounts) 
+	{
+		List<ProfileAccount> searchedAccounts = new List<ProfileAccount>();
 		
-		foreach (var acc in account.followers)
+		foreach (var account in accounts)
 		{
-			if (acc.username.Contains(profileUsername))
+			if (account.username.Contains(search)) 
+			{
+				searchedAccounts.Add(account);
+			}
+		}
+		
+		return searchedAccounts;
+	}
+	
+	public FollowStatus GetFollowStatus(string username, string profileUsername) 
+	{	
+		var account = GetProfileAccountByUsername(username);
+		
+		foreach (var acc in account.following)
+		{
+			if (acc.username == profileUsername)
 			{
 				followStatus = FollowStatus.Following;
 				
@@ -79,5 +94,37 @@ public class ProfileRules
 		
 		return followStatus;
 	}
-
+	
+	public String GenerateFollowOption(string username, string profileUsername)
+	{
+		var followStatus = GetFollowStatus(username, profileUsername); 
+		String followOption = "";
+		
+		switch (followStatus)
+		{
+			case FollowStatus.Following:
+				followOption = "Unfollow";
+				
+				break;
+			case FollowStatus.NotFollowing:
+				followOption = "Follow";
+				
+				break;
+		}
+		
+		return followOption;
+	}
+	
+	public bool CanUserViewThisProfilesInformation(ProfileAccount user, ProfileAccount visitingProfile)
+	{
+		bool canUserViewThisProfilesInformation = true;
+		var followStatus = GetFollowStatus(user.username, visitingProfile.username);
+		
+		if (visitingProfile.accountPrivacy == AccountPrivacy.Private && followStatus == FollowStatus.NotFollowing)
+		{
+			canUserViewThisProfilesInformation = false;
+		}
+		
+		return canUserViewThisProfilesInformation;
+	}
 }
