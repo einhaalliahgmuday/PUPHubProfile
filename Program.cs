@@ -6,11 +6,10 @@ namespace Profile
 {
 	internal class Program
 	{	
-		public static ProfileRules profileRules = new ProfileRules();
-		public static string username = "juandelacruz";
-		public static ProfileAccount user = profileRules.GetProfileAccountByUsername(username);
-		public static string profileUsername;
 		public static int input;
+		public static ProfileRules profileRules = new ProfileRules();
+		public static string userUsername = "juandelacruz";
+		public static string visitingProfileUsername;
 		
 		public static void Main(string[] args)
 		{	
@@ -19,10 +18,10 @@ namespace Profile
 		
 		static void ViewProfileMain()
         {	
-			DisplayProfile(username);
-			MakeSpace();
-			
+			DisplayProfile(userUsername);
+			MakeSpace();		
             ShowMainMenu();
+			MakeSpace();
             ProcessUserActionInMainMenu();
         }
 		
@@ -69,7 +68,6 @@ namespace Profile
                 case 1:
 					while (input != 0)
 					{
-						MakeSpace();
 						ShowEditProfileMenu();
 						
 						MakeSpace();
@@ -87,22 +85,14 @@ namespace Profile
                 case 3:
 					while (input != 0)
 					{
-						MakeSpace();
-						ViewFollowingList(user);
-						
-						MakeSpace();
-						ShowViewFollowsMenu("Following");
+						ViewFollowingAndProcessMenu(userUsername);
 					}
 					
                     break;
                 case 4:
 					while (input != 0)
 					{
-						MakeSpace();
-						ViewFollowersList(user);
-						
-						MakeSpace();
-						ShowViewFollowsMenu("Followers");
+						ViewFollowersAndProcessMenu(userUsername);
 					}
 					
                     break;
@@ -116,7 +106,6 @@ namespace Profile
                 case 6:
 					while (input != 0)
 					{
-						MakeSpace();
 						ShowOptionsMenu();
 						
 						MakeSpace();
@@ -149,12 +138,12 @@ namespace Profile
 					break;
 				case 1:
 					updatedInformation = GetUpdatedInformation("Gender Pronouns");
-					profileRules.EditProfileInformation(username, "Gender Pronouns", updatedInformation);
+					profileRules.EditProfileInformation(userUsername, "Gender Pronouns", updatedInformation);
 					
 					break;
 				case 2:
 					updatedInformation = GetUpdatedInformation("Bio");
-					profileRules.EditProfileInformation(username, "Bio", updatedInformation);
+					profileRules.EditProfileInformation(userUsername, "Bio", updatedInformation);
 					
 					break;
 				}
@@ -168,33 +157,49 @@ namespace Profile
 			return updatedInformation;
 		}
 		
-		static void ViewFollowingList(ProfileAccount account)	//string username
+		static void ViewFollowingAndProcessMenu(string username)
 		{
-			// ProfileAccount account = profileRules.GetProfileAccountByUsername(username);
+			DisplayFollowingList(username);
+			MakeSpace();
+			ShowFollowMenu();
+			MakeSpace();
+			ProcessUserActionInFollowMenu(username, "Following");
+		}
+		
+		static void ViewFollowersAndProcessMenu(string username)
+		{
+			DisplayFollowingList(username);
+			MakeSpace();
+			ShowFollowMenu();
+			MakeSpace();
+			ProcessUserActionInFollowMenu(username, "Followers");
+		}
+		
+		static void DisplayFollowingList(string username)
+		{
+			var account = profileRules.GetProfileAccountByUsername(username);
 			
 			Console.WriteLine("FOLLOWING: ");
 			Console.WriteLine();
-			
-			foreach (var follow in account.following)
+			foreach (var following in account.following)
 			{
-				Console.WriteLine("{0}   		{1}", follow.name, follow.username);
+				Console.WriteLine("{0}   		{1}", following.name, following.username);
 			}
 		}
 		
-		static void ViewFollowersList(ProfileAccount account)	//string username
+		static void DisplayFollowersList(string username)
 		{
-			// ProfileAccount account = profileRules.GetProfileAccountByUsername(username);
+			var account = profileRules.GetProfileAccountByUsername(username);
 			
 			Console.WriteLine("FOLLOWERS: ");
 			Console.WriteLine();
-			
-			foreach (var follow in account.followers)
+			foreach (var follower in account.followers)
 			{
-				Console.WriteLine("{0}   		{1}", follow.name, follow.username);
+				Console.WriteLine("{0}   		{1}", follower.name, follower.username);
 			}
 		}
-		
-		static void ShowViewFollowsMenu(string inFollowingOrFollowers)
+
+		static void ShowFollowMenu()
 		{
 			Console.WriteLine("---FOLLOW MENU---");
 			Console.WriteLine("1 | Search");
@@ -202,13 +207,10 @@ namespace Profile
 			Console.WriteLine("0 | Go back");
 			Console.WriteLine("----------------");
 			GetUserInput();
-			
-			MakeSpace();
-			ProcessUserActionInViewFollowsMenu(inFollowingOrFollowers);
 		}
 		
-		static void ProcessUserActionInViewFollowsMenu(string inFollowingOrFollowers)	//EDIT HERE
-		{
+		static void ProcessUserActionInFollowMenu(string username, string whichFollowList)
+		{	
 			switch (input)
 			{
 				case 0:
@@ -218,19 +220,9 @@ namespace Profile
 				case 1:
 					Console.Write("Search: ");
 					string search = Console.ReadLine();
-					
 					MakeSpace();
 					
-					List<ProfileAccount> searchedAccounts = new List<ProfileAccount>();
-					
-					if (inFollowingOrFollowers == "Following")
-					{
-						searchedAccounts = profileRules.Search(search, user.following);
-					}
-					else if (inFollowingOrFollowers == "Followers")
-					{
-						searchedAccounts = profileRules.Search(search, user.followers);
-					}
+					var searchedAccounts = profileRules.GetSearchedAccountsInFollowList(search, username, whichFollowList);
 					
 					foreach (var account in searchedAccounts)
 					{
@@ -242,140 +234,13 @@ namespace Profile
 					break;
 				case 2:
 					Console.Write("Enter profile username to visit: ");
-					profileUsername = Console.ReadLine();
+					visitingProfileUsername = Console.ReadLine();
 					MakeSpace();
 					
-					while (input != 0)
-					{
-						DisplayProfile(profileUsername);
-						MakeSpace();
-						ShowOthersProfileMenu();
-						ProcessUserActionInOthersProfileMenu();
-					}
+					ViewOthersProfile();
 					
 					break;
 			}
-		}
-		
-		static void ShowOthersProfileMenu()
-		{
-			String followOption = profileRules.GenerateFollowOption(username, profileUsername);
-			
-			Console.WriteLine("-------MENU-------");
-			Console.WriteLine("1 | {0}", followOption);
-			Console.WriteLine("2 | Message");
-			Console.WriteLine("3 | Following");
-			Console.WriteLine("4 | Followers");
-			Console.WriteLine("5 | View Timeline");
-			Console.WriteLine("6 | Options");
-			Console.WriteLine("0 | Go Back");
-			Console.WriteLine("------------------");
-			GetUserInput();
-		}
-		
-		static void ProcessUserActionInOthersProfileMenu()
-		{
-			ProfileAccount visitingProfile = profileRules.GetProfileAccountByUsername(profileUsername);
-			
-			switch (input)
-			{
-				case 0:
-					
-					break;
-				case 1:
-					
-					GoBack();
-					
-					break;
-				case 2:
-					
-					GoBack();
-					
-					break;
-				case 3:
-					while(input != 0)
-					{
-						MakeSpace();
-					
-						if (profileRules.CanUserViewThisProfilesInformation(user, visitingProfile))
-						{
-							ViewFollowingList(visitingProfile);
-						}
-						
-						MakeSpace();
-						ShowViewFollowsMenu("Following");
-					}
-					
-					break;
-				case 4:
-					while(input != 0)
-					{
-						MakeSpace();
-					
-						if (profileRules.CanUserViewThisProfilesInformation(user, visitingProfile))
-						{
-							ViewFollowersList(visitingProfile);
-						}
-						
-						MakeSpace();
-						ShowViewFollowsMenu("Following");
-					}
-					
-					break;
-				case 5:
-					
-					GoBack();
-					
-					break;
-				case 6:
-					MakeSpace();
-					ShowVisitingProfileOptionMenu();
-					MakeSpace();
-					ProcessUserActionInVisitingProfileOptionsMenu();
-					
-					break;
-			}
-		}
-		
-		static void ShowVisitingProfileOptionMenu()
-		{
-			Console.WriteLine("-------OPTIONS-------");
-			Console.WriteLine("1 | View profile link");
-			Console.WriteLine("2 | Block");
-			Console.WriteLine("3 | Report");
-			Console.WriteLine("0 | Go back");
-			Console.WriteLine("---------------------");
-			GetUserInput();
-		}
-		
-		static void ProcessUserActionInVisitingProfileOptionsMenu()
-		{
-			switch (input)
-            {
-                case 0:
-                    
-
-                    break;
-                case 1:
-					string profileLink = profileRules.GenerateProfileLink(profileUsername);
-					Console.WriteLine("This profile account's link: {1}", profileLink);
-					
-					GoBack();
-					
-                    break;
-                case 2:
-                    
-					
-					GoBack();
-
-                    break;
-				case 3:
-                    
-					
-					GoBack();
-
-                    break;
-            }
 		}
 		
 		static void ShowOptionsMenu()
@@ -397,7 +262,7 @@ namespace Profile
 
                     break;
                 case 1:
-                    string profileLink = profileRules.GenerateProfileLink(username);
+                    string profileLink = profileRules.GenerateProfileLink(userUsername);
 					Console.WriteLine("Your profile link: {0}", profileLink);
                     
 					GoBack();
@@ -411,6 +276,126 @@ namespace Profile
                     break;
             }
         }
+		
+		static void ViewOthersProfile()
+		{
+			DisplayProfile(visitingProfileUsername);
+			MakeSpace();
+			ShowVisitingProfileMenu();
+			MakeSpace();
+			ProcessUserActionInVisitingProfileMenu();
+		}
+		
+		static void ShowVisitingProfileMenu()
+		{
+			String followOption = profileRules.GenerateFollowOption(userUsername, visitingProfileUsername);
+			
+			Console.WriteLine("-------MENU-------");
+			Console.WriteLine("1 | {0}", followOption);
+			Console.WriteLine("2 | Message");
+			Console.WriteLine("3 | Following");
+			Console.WriteLine("4 | Followers");
+			Console.WriteLine("5 | View Timeline");
+			Console.WriteLine("6 | Options");
+			Console.WriteLine("0 | Go Back");
+			Console.WriteLine("------------------");
+			GetUserInput();
+		}
+		
+		static void ProcessUserActionInVisitingProfileMenu()
+		{
+			
+			switch (input)
+			{
+				case 0:
+					ViewProfileMain();
+					
+					break;
+				case 1:
+					
+					GoBack();
+					
+					break;
+				case 2:
+					
+					GoBack();
+					
+					break;
+				case 3:
+					while(input != 0)
+					{
+						if (profileRules.CanUserViewThisProfilesInformation(userUsername, visitingProfileUsername))
+						{
+							ViewFollowingAndProcessMenu(visitingProfileUsername);
+						}
+					}
+					
+					break;
+				case 4:
+					while(input != 0)
+					{
+						if (profileRules.CanUserViewThisProfilesInformation(userUsername, visitingProfileUsername))
+						{
+							ViewFollowersAndProcessMenu(visitingProfileUsername);
+						}
+					}
+					
+					break;
+				case 5:
+					
+					GoBack();
+					
+					break;
+				case 6:
+					MakeSpace();
+					ShowVisitingProfileOptionsMenu();
+					MakeSpace();
+					ProcessUserActionInVisitingProfileOptionsMenu();
+					
+					break;
+			}
+		}
+		
+		static void ShowVisitingProfileOptionsMenu()
+		{
+			Console.WriteLine("-------OPTIONS-------");
+			Console.WriteLine("1 | View profile link");
+			Console.WriteLine("2 | Block");
+			Console.WriteLine("3 | Report");
+			Console.WriteLine("0 | Go back");
+			Console.WriteLine("---------------------");
+			GetUserInput();
+		}
+		
+		static void ProcessUserActionInVisitingProfileOptionsMenu()
+		{
+			switch (input)
+            {
+                case 0:
+                    
+
+                    break;
+                case 1:
+					string profileLink = profileRules.GenerateProfileLink(visitingProfileUsername);
+					Console.WriteLine("This profile account's link: {1}", profileLink);
+					
+					GoBack();
+					
+                    break;
+                case 2:
+                    
+					
+					GoBack();
+
+                    break;
+				case 3:
+                    
+					
+					GoBack();
+
+                    break;
+            }
+		}
 		
 		static int GetUserInput()
         {
