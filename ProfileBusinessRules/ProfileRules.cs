@@ -145,17 +145,4 @@ public class ProfileRules
 		
 		return canUserViewThisProfilesInformation;
 	}
-	
-	// public bool CanUserViewThisProfilesInformation(ProfileAccount user, ProfileAccount visitingProfile)
-	// {
-		// bool canUserViewThisProfilesInformation = true;
-		// var followStatus = GetFollowStatus(user.username, visitingProfile.username);
-		
-		// if (visitingProfile.accountPrivacy == AccountPrivacy.Private && followStatus == FollowStatus.NotFollowing)
-		// {
-			// canUserViewThisProfilesInformation = false;
-		// }
-		
-		// return canUserViewThisProfilesInformation;
-	// }
 }
