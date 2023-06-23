@@ -7,6 +7,7 @@ namespace ProfileBusinessRules;
 public class RegistrationRules
 {
 	InMemoryRegistrationData registrationData = new InMemoryRegistrationData();
+	InMemoryProfileData profileData = new InMemoryProfileData();
 	
 	public List<RegisteredAccount> GetAllRegisteredAccounts()
 	{
@@ -30,15 +31,10 @@ public class RegistrationRules
 		return doesUsernameAlreadyExists;
 	}
 	
-	public void CreateProfileAccount()
+	public void RegisterProfileAccount(string studentNo, string username, string name, string courYrSec, string location)
 	{
-		//SIS Account information
-	}
-	
-	public void RegisterProfileAccount()
-	{
-		//dateJoined as registered
-		//add profile to all accounts
+		registrationData.CreateRegisteredAccount(studentNo, username);
+		profileData.CreateProfileAccount(name, username, courYrSec, location);
 	}
 	
 	public bool IsAccountRegistered(string studentNo)

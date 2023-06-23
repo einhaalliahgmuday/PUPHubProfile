@@ -6,7 +6,6 @@ namespace ProfileBusinessRules;
 public class VisitingProfileRules
 {
 	ProfileRules profileRules = new ProfileRules();
-	AccountPrivacy accountPrivacy;
 	FollowStatus followStatus;
 		
 	public FollowStatus GetFollowStatus(string userUsername, string visitingProfileUsername) 

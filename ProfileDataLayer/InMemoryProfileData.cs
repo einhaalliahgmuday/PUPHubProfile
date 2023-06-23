@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using ProfileDataModels;
 
 namespace ProfileDataLayer;
@@ -15,6 +16,12 @@ public class InMemoryProfileData
 	public InMemoryProfileData()
 	{
 		CreateProfileAccounts();
+	}
+	
+	public void CreateProfileAccount(string pname, string pusername, string pcourYrSec, string plocation)
+	{
+		profileAccounts.Add(new ProfileAccount{name = pname, username = pusername, dateJoined = DateTime.Now, 
+			courYrSec = pcourYrSec, location = plocation, accountPrivacy = AccountPrivacy.Public});	//create method that allows user to edit accountPrivacy
 	}
 	
 	public void CreateProfileAccounts() 

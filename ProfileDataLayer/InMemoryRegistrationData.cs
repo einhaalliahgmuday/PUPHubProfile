@@ -17,10 +17,10 @@ public class InMemoryRegistrationData
 		CreateRegisteredAccounts();
 	}
 	
-	// public void CreateRegisteredAccount(string xstudentNo, string xusername) 
-	// {
-		// registeredAccounts.Add(new RegisteredAccount{studentNo = xstudentNo, username = xusername});
-	// }
+	public void CreateRegisteredAccount(string pstudentNo, string pusername) 
+	{
+		registeredAccounts.Add(new RegisteredAccount{studentNo = pstudentNo, username = pusername});
+	}
 	
 	public void CreateRegisteredAccounts()
 	{
