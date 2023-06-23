@@ -14,6 +14,7 @@ public class ProfileAccount
 	public string location {get; set;}
 	public AccountPrivacy accountPrivacy{get; set;}
 	
-	public List <ProfileAccount> followers = new List <ProfileAccount>();
-	public List <ProfileAccount> following = new List <ProfileAccount>();
+	public List<ProfileAccount> followers = new List<ProfileAccount>();
+	public List<ProfileAccount> following = new List<ProfileAccount>();
+	public List<ProfileAccount> blockedAccounts = new List<ProfileAccount>();
 }
