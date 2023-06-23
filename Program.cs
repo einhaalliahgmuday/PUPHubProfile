@@ -6,10 +6,11 @@ namespace Profile
 {
 	internal class Program
 	{	
-		public static int input;
 		public static ProfileRules profileRules = new ProfileRules();
+		public static VisitingProfileRules visitingProfileRules = new VisitingProfileRules();
 		public static string userUsername = "juandelacruz";
 		public static string visitingProfileUsername;
+		public static int input;
 		
 		public static void Main(string[] args)
 		{	
@@ -170,6 +171,40 @@ namespace Profile
 			return updatedInformation;
 		}
 		
+		static void ShowOptionsMenu()
+        {
+			Console.WriteLine("-------OPTIONS-------");
+			Console.WriteLine("1 | View profile link");
+			Console.WriteLine("2 | Settings");
+			Console.WriteLine("0 | Go back");
+			Console.WriteLine("---------------------");
+			GetUserInput();
+        }
+
+        static void ProcessUserActionInOptionsMenu()
+        {
+            switch (input)
+            {
+                case 0:
+                    ViewProfileMain();
+
+                    break;
+                case 1:
+                    string profileLink = profileRules.GenerateProfileLink(userUsername);
+					Console.WriteLine("Your profile link: {0}", profileLink);
+                    
+					GoBack();
+					
+                    break;
+                case 2:
+                    
+					
+					GoBack();
+
+                    break;
+            }
+        }
+		
 		static void ViewFollowingAndProcessMenu(string username)
 		{
 			var account = profileRules.GetProfileAccountByUsername(username);
@@ -245,7 +280,14 @@ namespace Profile
 					
 					foreach (var account in searchedAccounts)
 					{
-						Console.WriteLine("{0}   		{1}", account.name, account.username);
+						if (visitingProfileRules.IsProfileAccountBlocked(userUsername, account.username))	//business rule?
+						{
+							continue;
+						}
+						else 
+						{
+							Console.WriteLine("{0}   		{1}", account.name, account.username);
+						}
 					}
 					
 					GoBack();
@@ -269,40 +311,6 @@ namespace Profile
 			}
 		}
 		
-		static void ShowOptionsMenu()
-        {
-			Console.WriteLine("-------OPTIONS-------");
-			Console.WriteLine("1 | View profile link");
-			Console.WriteLine("2 | Settings");
-			Console.WriteLine("0 | Go back");
-			Console.WriteLine("---------------------");
-			GetUserInput();
-        }
-
-        static void ProcessUserActionInOptionsMenu()
-        {
-            switch (input)
-            {
-                case 0:
-                    ViewProfileMain();
-
-                    break;
-                case 1:
-                    string profileLink = profileRules.GenerateProfileLink(userUsername);
-					Console.WriteLine("Your profile link: {0}", profileLink);
-                    
-					GoBack();
-					
-                    break;
-                case 2:
-                    
-					
-					GoBack();
-
-                    break;
-            }
-        }
-		
 		static void ViewOthersProfile()
 		{
 			DisplayProfile(visitingProfileUsername);
@@ -313,7 +321,7 @@ namespace Profile
 		
 		static void ShowVisitingProfileMenu()
 		{
-			String followOption = profileRules.GenerateFollowOption(userUsername, visitingProfileUsername);
+			String followOption = visitingProfileRules.GenerateFollowOption(userUsername, visitingProfileUsername);
 			
 			Console.WriteLine("-------MENU-------");
 			Console.WriteLine("1 | {0}", followOption);
@@ -349,7 +357,7 @@ namespace Profile
 				case 3:
 					while(input != 0)
 					{
-						if (profileRules.CanUserViewThisProfilesInformation(userUsername, visitingProfileUsername))
+						if (visitingProfileRules.IsUserAllowedToAccessThisProfilesInformation(userUsername, visitingProfileUsername))
 						{
 							ViewFollowingAndProcessMenu(visitingProfileUsername);
 						}
@@ -359,7 +367,7 @@ namespace Profile
 				case 4:
 					while(input != 0)
 					{
-						if (profileRules.CanUserViewThisProfilesInformation(userUsername, visitingProfileUsername))
+						if (visitingProfileRules.IsUserAllowedToAccessThisProfilesInformation(userUsername, visitingProfileUsername))	//this
 						{
 							ViewFollowersAndProcessMenu(visitingProfileUsername);
 						}

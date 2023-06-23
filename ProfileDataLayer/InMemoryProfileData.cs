@@ -115,6 +115,8 @@ public class InMemoryProfileData
 		user.followers.Add(profile5);
 		user.followers.Add(profile6);
 		
+		user.blockedAccounts.Add(profile6);
+		
 		profile2.following.Add(profile3);
 		profile2.following.Add(profile5);
 		profile2.following.Add(profile6);

@@ -1,12 +1,33 @@
-﻿namespace ProfileBusinessRules;
+﻿using System;
+using ProfileDataLayer;
+using ProfileDataModels;
+
+namespace ProfileBusinessRules;
 
 public class RegistrationRules
 {
+	InMemoryRegistrationData registrationData = new InMemoryRegistrationData();
+	
+	public List<RegisteredAccount> GetAllRegisteredAccounts()
+	{
+		return registrationData.GetRegisteredAccounts();
+	}
+	
 	// DoesStudentExists in AllSISAccounts
 	
-	public void bool DoesUsernameAlreadyExists()
+	public bool DoesUsernameAlreadyExists(string username)
 	{
-		// set username, if true (but isn't the username automatically generated, kasi dapat unique? o dapat si user maglalagay, tas may validation if it already exists?)
+		bool doesUsernameAlreadyExists = false;
+		var allRegisteredAccounts = GetAllRegisteredAccounts();
+		
+		foreach (var account in allRegisteredAccounts) {
+			if (account.username == username)
+			{
+				doesUsernameAlreadyExists = true;
+			}
+		}
+		
+		return doesUsernameAlreadyExists;
 	}
 	
 	public void CreateProfileAccount()
@@ -20,10 +41,20 @@ public class RegistrationRules
 		//add profile to all accounts
 	}
 	
-	public void IsAccountRegistered()
+	public bool IsAccountRegistered(string studentNo)
 	{
-		// Search from all accounts		validation if the student has profile account, otherwise they need to register first
-		//through studentNo
+		bool isAccountRegistered = false;
+		var allRegisteredAccounts = GetAllRegisteredAccounts();
+		
+		foreach (var account in allRegisteredAccounts)
+		{
+			if (account.studentNo == studentNo)
+			{
+				isAccountRegistered = true;
+			}
+		}
+		
+		return isAccountRegistered;
 	}
 	
 	
