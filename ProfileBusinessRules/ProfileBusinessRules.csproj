@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Reference Include="ProfileDataModels">
       <HintPath>..\ProfileDataModels\bin\Debug\net6.0\ProfileDataModels.dll</HintPath>
     </Reference>
