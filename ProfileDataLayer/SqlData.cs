@@ -7,9 +7,7 @@ namespace ProfileDataLayer;
 
 public class SqlData
 {
-	static string connectionString;
-        //= "Data Source =localhost; Initial Catalog = PUPHubPosts; Integrated Security = True;";
-        //= "Server=tcp://,1433;Database=PUPPoints;User Id=sa;Password=indaleenq727!;";
+	static string connectionString = "Server=localhost;Database=PUPHubProfile;Trusted_Connection=True;";
         
 	static SqlConnection sqlConnection;
 
@@ -18,14 +16,14 @@ public class SqlData
         sqlConnection = new SqlConnection(connectionString);
     }
 	
-	public List<RegisteredAccount> GetRegisteredAccounts
+	public List<RegisteredAccount> GetRegisteredAccounts()
 	{
-		var selectStatement = "SELECT StudentNo, Username FROM RegisteredAccounts";
+		string selectStatement = "SELECT StudentNo, Username FROM RegisteredAccounts";
 		SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
 		sqlConnection.Open();
 		SqlDataReader reader = selectCommand.ExecuteReader();
 		
-		var registeredAccounts = new List<RegisteredAccount>();
+		List<RegisteredAccount> registeredAccounts = new List<RegisteredAccount>();
 		
 		while (reader.Read())
 		{
@@ -41,10 +39,8 @@ public class SqlData
 		return registeredAccounts;
 	}
 	
-	public void RegisterAccount(RegisteredAccount registeredAccount)	//int
-    {
-		//	int success;
-		
+	public void RegisterAccount(RegisteredAccount registeredAccount)
+    {	
         var insertStatement = "INSERT INTO RegisteredAccounts VALUES (@StudentNo, @Username)";
         SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection);
 		insertCommand.Parameters.AddWithValue("@StudentNo", registeredAccount.studentNo);
@@ -52,14 +48,12 @@ public class SqlData
            
 		sqlConnection.Open();
 
-		success = insertCommand.ExecuteNonQuery();
+		insertCommand.ExecuteNonQuery();
 
 		sqlConnection.Close();
-
-		//	return success;
 	}
 	
-	public List<ProfileAccount> GetProfileAccounts
+	public List<ProfileAccount> GetProfileAccounts()
 	{
 		var selectStatement = "SELECT Username, GenderPronouns, Rating, DateJoined, Bio FROM ProfileAccounts";	//include AccountPrivacy?
 		SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
@@ -74,7 +68,7 @@ public class SqlData
 			{
 				username = reader["Username"].ToString(),
 				genderPronouns = reader["GenderPronouns"].ToString(),
-				rating = Convert.ToInt16(reader["Rating"].ToString(),
+				rating = reader["Rating"].ToString(),
 				dateJoined = DateTime.Now,
 				bio = reader["Bio"].ToString()
 			});
@@ -86,30 +80,28 @@ public class SqlData
 	}
 
 		
-	public void CreateProfileAccount(ProfileAccount profileAccount)	//int
+	public void CreateProfileAccount(ProfileAccount profileAccount)
 	{
-		//	int success;
-			
 		var insertStatement = "INSERT INTO ProfileAccounts VALUES (@Username, @GenderPronouns, @Rating, @DateJoined, @Bio)";
 
 		SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection);
 
-		insertCommand.Parameters.AddWithValue("@Username", registeredAccount.username);
-		insertCommand.Parameters.AddWithValue("@GenderPronouns", registeredAccount.genderPronouns);
-		insertCommand.Parameters.AddWithValue("@Rating", registeredAccount.rating);
-		insertCommand.Parameters.AddWithValue("@DateJoined", registeredAccount.dateJoined);
-		insertCommand.Parameters.AddWithValue("@Bio", registeredAccount.bio);
+		insertCommand.Parameters.AddWithValue("@Username", profileAccount.username);
+		insertCommand.Parameters.AddWithValue("@GenderPronouns", profileAccount.genderPronouns);
+		insertCommand.Parameters.AddWithValue("@Rating", profileAccount.rating);
+		insertCommand.Parameters.AddWithValue("@DateJoined", profileAccount.dateJoined);
+		insertCommand.Parameters.AddWithValue("@Bio", profileAccount.bio);
            
 		sqlConnection.Open();
-		insertCommand.ExecuteNonQuery();	//success =
+		insertCommand.ExecuteNonQuery();
 
 		sqlConnection.Close();
-
-		//	return success;
 	}
 		
-	public void UpdateProfileAccount(string informationToUpdate, ProfileAccount profileAccount)
+	public void UpdateProfileAccount(ProfileAccount profileAccount, string informationToUpdate, string updatedInformation)
 	{
+		sqlConnection.Open();
+		
 		SqlCommand updateCommand;
 			
 		if (informationToUpdate == "genderPronouns")
@@ -117,29 +109,31 @@ public class SqlData
 			var updateStatement = "UPDATE ProfileAccounts SET GenderPronouns = @GenderPronouns WHERE Username = @Username";
 			updateCommand = new SqlCommand(updateStatement, sqlConnection);
 				
-			updateCommand.Parameters.AddWithValue("@GenderPronouns", profileAccount.genderPronouns);
+			updateCommand.Parameters.AddWithValue("@GenderPronouns", updatedInformation);
 			updateCommand.Parameters.AddWithValue("@Username", profileAccount.username);
+			
+			updateCommand.ExecuteNonQuery();
 		}
 		else if (informationToUpdate == "rating")
 		{
 			var updateStatement = "UPDATE ProfileAccounts SET Rating = @Rating WHERE Username = @Username";
 			updateCommand = new SqlCommand(updateStatement, sqlConnection);
 			
-			updateCommand.Parameters.AddWithValue("@GenderPronouns", profileAccount.genderPronouns);
+			updateCommand.Parameters.AddWithValue("@Rating", updatedInformation);
 			updateCommand.Parameters.AddWithValue("@Username", profileAccount.username);
+			
+			updateCommand.ExecuteNonQuery();
 		}
 		else if (informationToUpdate == "bio")
 		{
 			var updateStatement = "UPDATE ProfileAccounts SET Bio = @Bio WHERE Username = @Username";
 			updateCommand = new SqlCommand(updateStatement, sqlConnection);
 			
-			updateCommand.Parameters.AddWithValue("@GenderPronouns", profileAccount.genderPronouns);
+			updateCommand.Parameters.AddWithValue("@Bio", updatedInformation);
 			updateCommand.Parameters.AddWithValue("@Username", profileAccount.username);
-		}
 			
-		sqlConnection.Open();
-
-		updateCommand.ExecuteNonQuery();
+			updateCommand.ExecuteNonQuery();
+		}
 
 		sqlConnection.Close();
 	}

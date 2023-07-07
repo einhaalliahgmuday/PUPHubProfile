@@ -7,9 +7,9 @@ public class ProfileDataService
 {
 	SqlData sqlData = new SqlData();
 	
-	public List<RegisteredAccount> GetAllRegisteredAccounts
+	public List<RegisteredAccount> GetAllRegisteredAccounts()
 	{
-		return sqlData.GetRegisteredAccounts;
+		return sqlData.GetRegisteredAccounts();
 	}
 	
 	public void RegisterAccount(RegisteredAccount registeredAccount) 
@@ -17,9 +17,9 @@ public class ProfileDataService
 		sqlData.RegisterAccount(registeredAccount);
 	}
 	
-	public List<ProfileAccount> GetAllProfileAccounts
+	public List<ProfileAccount> GetAllTheProfileAccounts()		//change naming convention
 	{
-		return sqlData.GetProfileAccounts;
+		return sqlData.GetProfileAccounts();
 	}
 	
 	public void CreateProfileAccount(ProfileAccount profileAccount) 
@@ -27,9 +27,9 @@ public class ProfileDataService
 		sqlData.CreateProfileAccount(profileAccount);
 	}
 	
-	public void UpdateProfileAccount(string informationToUpdate, ProfileAccount profileAccount)
+	public void UpdateTheProfileAccount(ProfileAccount profileAccount, string informationToUpdate, string updatedInformation)		//change naming convention
 	{
-		sqlData.UpdateProfileAccount(informationToUpdate, profileAccount);
+		sqlData.UpdateProfileAccount(profileAccount, informationToUpdate, updatedInformation);
 	}
 	
 }

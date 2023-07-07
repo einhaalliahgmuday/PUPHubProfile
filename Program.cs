@@ -1,6 +1,7 @@
 ﻿using System;
 using ProfileBusinessRules;
 using ProfileDataModels;
+using System.Data.SqlClient;
 
 namespace Profile
 {
@@ -13,8 +14,17 @@ namespace Profile
 		public static int input;
 		
 		public static void Main(string[] args)
-		{	
+		{
 			ViewProfileMain();
+
+			// profileRules.CreateAccount("0000-00000-BB-0", "juanadelacruz", "she/her", "");
+			// profileRules.EditProfileInformation("juanadelacruz", "bio", "Hello");
+
+			// var profileAccounts = profileRules.GetAllProfileAccounts();
+			// foreach (var account in profileAccounts) 
+			// {
+				// Console.WriteLine(account.username);
+			// }
 		}
 		
 		static void ViewProfileMain()

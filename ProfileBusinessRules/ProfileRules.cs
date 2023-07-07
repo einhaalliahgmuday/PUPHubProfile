@@ -7,10 +7,12 @@ namespace ProfileBusinessRules;
 public class ProfileRules
 {
 	InMemoryProfileData profileData = new InMemoryProfileData();
+	ProfileDataService dataService = new ProfileDataService();
 	
 	public List<ProfileAccount> GetAllProfileAccounts()
 	{
-		return profileData.GetProfileAccounts();
+		// return profileData.GetProfileAccounts();
+		return dataService.GetAllTheProfileAccounts();
 	}
 	
 	public ProfileAccount GetProfileAccountByUsername(string username)
@@ -29,7 +31,26 @@ public class ProfileRules
 		return foundAccount;
 	}
 	
-	public void EditProfileInformation(string username, string information, string updatedInformation)
+	public void CreateAccount(string pstudentNo, string pusername, string pgenderPronouns, string pbio)		//draft
+	{
+		ProfileAccount profile = new ProfileAccount{
+			username = pusername,
+			genderPronouns = pgenderPronouns,
+			rating = "0",
+			dateJoined = DateTime.Now,
+			bio = pbio
+		};
+		
+		RegisteredAccount registered = new RegisteredAccount{
+			studentNo = pstudentNo,
+			username = pusername
+		};
+		
+		dataService.CreateProfileAccount(profile);
+		dataService.RegisterAccount(registered);
+	}
+	
+	public void EditProfileInformation(string username, string informationToUpdate, string updatedInformation)
 	{
 		var allProfileAccounts = GetAllProfileAccounts();
 		
@@ -37,14 +58,16 @@ public class ProfileRules
 		{
 			if (username == account.username)
 			{
-				if (information == "Gender Pronouns")
-				{
-					account.genderPronouns = updatedInformation;
-				}
-				else if (information == "Bio")
-				{
-					account.bio = updatedInformation;
-				}
+				dataService.UpdateTheProfileAccount(account, informationToUpdate, updatedInformation);
+				
+				// if (information == "Gender Pronouns")
+				// {
+					// account.genderPronouns = updatedInformation;
+				// }
+				// else if (information == "Bio")
+				// {
+					// account.bio = updatedInformation;
+				// }
 			}
 		}
 	}
