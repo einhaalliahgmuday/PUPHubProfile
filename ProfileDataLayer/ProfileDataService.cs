@@ -7,29 +7,40 @@ public class ProfileDataService
 {
 	SqlData sqlData = new SqlData();
 	
-	public List<RegisteredAccount> GetAllRegisteredAccounts()
+	public List<RegisteredAccount> GetAllTheRegisteredAccounts()
 	{
 		return sqlData.GetRegisteredAccounts();
 	}
 	
-	public void RegisterAccount(RegisteredAccount registeredAccount) 
+	public void RegisterTheAccount(RegisteredAccount registeredAccount) 
 	{
 		sqlData.RegisterAccount(registeredAccount);
 	}
 	
-	public List<ProfileAccount> GetAllTheProfileAccounts()		//change naming convention
+	public void DeleteTheRegisteredAccount(RegisteredAccount registeredAccount) 
+	{
+		sqlData.DeleteRegisteredAccount(registeredAccount);
+	}
+		
+	
+	public List<ProfileAccount> GetAllTheProfileAccounts()
 	{
 		return sqlData.GetProfileAccounts();
 	}
 	
-	public void CreateProfileAccount(ProfileAccount profileAccount) 
+	public void CreateTheProfileAccount(ProfileAccount profileAccount) 
 	{
 		sqlData.CreateProfileAccount(profileAccount);
 	}
 	
-	public void UpdateTheProfileAccount(ProfileAccount profileAccount, string informationToUpdate, string updatedInformation)		//change naming convention
+	public void UpdateTheProfileAccount(ProfileAccount profileAccount, string informationToUpdate, string updatedInformation)
 	{
 		sqlData.UpdateProfileAccount(profileAccount, informationToUpdate, updatedInformation);
+	}
+	
+	public void DeleteTheProfileAccount(ProfileAccount profileAccount) 
+	{
+		sqlData.DeleteProfileAccount(profileAccount);
 	}
 	
 }

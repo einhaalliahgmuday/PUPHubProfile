@@ -8,17 +8,22 @@ namespace Profile
 	internal class Program
 	{	
 		public static ProfileRules profileRules = new ProfileRules();
+		public static RegistrationRules registrationRules = new RegistrationRules();
 		public static VisitingProfileRules visitingProfileRules = new VisitingProfileRules();
-		public static string userUsername = "juandelacruz";
+		public static string userUsername = "einhaalliahgmuday";
 		public static string visitingProfileUsername;
 		public static int input;
 		
 		public static void Main(string[] args)
 		{
 			ViewProfileMain();
+			
+			// registrationRules.DeleteAccount("einhaalliahgmuday");
+
+			// registrationRules.CreateAccount("2021-00214-BN-0", "einhaalliahgmuday");
 
 			// profileRules.CreateAccount("0000-00000-BB-0", "juanadelacruz", "she/her", "");
-			// profileRules.EditProfileInformation("juanadelacruz", "bio", "Hello");
+			// profileRules.EditProfileInformation("juandelacruz", "bio", "Hello");
 
 			// var profileAccounts = profileRules.GetAllProfileAccounts();
 			// foreach (var account in profileAccounts) 
@@ -162,12 +167,12 @@ namespace Profile
 					break;
 				case 1:
 					updatedInformation = GetUpdatedInformation("Gender Pronouns");
-					profileRules.EditProfileInformation(userUsername, "Gender Pronouns", updatedInformation);
+					profileRules.EditProfileInformation(userUsername, "genderPronouns", updatedInformation);
 					
 					break;
 				case 2:
 					updatedInformation = GetUpdatedInformation("Bio");
-					profileRules.EditProfileInformation(userUsername, "Bio", updatedInformation);
+					profileRules.EditProfileInformation(userUsername, "bio", updatedInformation);
 					
 					break;
 				}

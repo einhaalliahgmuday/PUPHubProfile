@@ -6,12 +6,81 @@ namespace ProfileBusinessRules
     public class RegistrationRules
     {
         
-        ProfileDataService profileDataService = new ProfileDataService(); // Instantiate ProfileDataService
+        ProfileDataService dataService = new ProfileDataService();
+		// InMemoryRegistrationData registrationData = new InMemoryRegistrationData();
+		ProfileRules profileRules = new ProfileRules();
 
         public List<RegisteredAccount> GetAllRegisteredAccounts()
-    {
-    return profileDataService.GetAllRegisteredAccounts();
-    }
+		{
+			return dataService.GetAllTheRegisteredAccounts();
+		}
+		
+		public RegisteredAccount GetRegisteredAccountByUsername(string username)
+		{
+			var allRegisteredAccounts = GetAllRegisteredAccounts();
+			var foundAccount = new RegisteredAccount();
+			
+			foreach (var account in allRegisteredAccounts)
+			{
+				if (username == account.username)
+				{
+					foundAccount = account;
+				}
+			}
+			
+			return foundAccount;
+		}
+		
+		public void CreateAccount(string pstudentNo, string pusername, string pgenderPronouns, string pbio)
+		{
+			ProfileAccount profile = new ProfileAccount {
+				username = pusername,
+				genderPronouns = pgenderPronouns,
+				rating = "0",
+				dateJoined = DateTime.Now,
+				bio = pbio
+			};
+		
+			RegisteredAccount registered = new RegisteredAccount {
+				studentNo = pstudentNo,
+				username = pusername
+			};
+		
+			dataService.CreateTheProfileAccount(profile);
+			dataService.RegisterTheAccount(registered);
+		}
+	
+		public void CreateAccount(string pstudentNo, string pusername)
+		{
+			ProfileAccount profileAccount = new ProfileAccount{
+				username = pusername,
+				genderPronouns = "",
+				rating = "0",
+				dateJoined = DateTime.Now,
+				bio = ""
+
+			};
+			
+			RegisteredAccount registeredAccount = new RegisteredAccount{
+				studentNo = pstudentNo,
+				username = pusername
+			};
+			
+			dataService.CreateTheProfileAccount(profileAccount);
+			dataService.RegisterTheAccount(registeredAccount);
+		}
+	
+		public void DeleteAccount(string username)
+		{
+			var registeredAccount = GetRegisteredAccountByUsername(username);
+			var profileAccount = profileRules.GetProfileAccountByUsername(username);
+		   
+			if (registeredAccount != null && profileAccount != null)
+			{
+				dataService.DeleteTheRegisteredAccount(registeredAccount);
+				dataService.DeleteTheProfileAccount(profileAccount);
+			}
+		}
 
         public bool DoesUsernameAlreadyExists(string username)
         {
@@ -27,12 +96,6 @@ namespace ProfileBusinessRules
             }
 
             return doesUsernameAlreadyExists;
-        }
-
-        public void RegisterProfileAccount(string studentNo, string username, string name, string courYrSec, string location)
-        {
-            registrationData.CreateRegisteredAccount(studentNo, username);
-            profileData.CreateProfileAccount(name, username, courYrSec, location);
         }
 
         public bool IsAccountRegistered(string studentNo)

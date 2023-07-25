@@ -8,6 +8,7 @@ namespace ProfileDataLayer;
 public class SqlData
 {
 	static string connectionString = "Server=localhost;Database=PUPHubProfile;Trusted_Connection=True;";
+	// static string connectionString = "Server=tcp:4.193.106.92,1433;Database=PUPHubProfile;User Id=sa;Password=PUPHUB123!";
         
 	static SqlConnection sqlConnection;
 
@@ -53,9 +54,22 @@ public class SqlData
 		sqlConnection.Close();
 	}
 	
+	public void DeleteRegisteredAccount(RegisteredAccount registeredAccount) 
+	{
+		var deleteStatement = "DELETE FROM RegisteredAccounts WHERE Username = @Username";
+		SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection);
+		sqlConnection.Open();
+		
+		deleteCommand.Parameters.AddWithValue("@Username", registeredAccount.username);
+		
+		deleteCommand.ExecuteNonQuery();
+		
+		sqlConnection.Close();
+	}	
+	
 	public List<ProfileAccount> GetProfileAccounts()
 	{
-		var selectStatement = "SELECT Username, GenderPronouns, Rating, DateJoined, Bio FROM ProfileAccounts";	//include AccountPrivacy?
+		var selectStatement = "SELECT Username, GenderPronouns, Rating, DateJoined, Bio FROM ProfileAccounts";
 		SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
 		sqlConnection.Open();
 		SqlDataReader reader = selectCommand.ExecuteReader();
@@ -135,6 +149,19 @@ public class SqlData
 			updateCommand.ExecuteNonQuery();
 		}
 
+		sqlConnection.Close();
+	}
+	
+	public void DeleteProfileAccount(ProfileAccount profileAccount) 
+	{
+		var deleteStatement = "DELETE FROM ProfileAccounts WHERE Username = @Username";
+		SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection);
+		sqlConnection.Open();
+		
+		deleteCommand.Parameters.AddWithValue("@Username", profileAccount.username);
+		
+		deleteCommand.ExecuteNonQuery();
+		
 		sqlConnection.Close();
 	}
 }
