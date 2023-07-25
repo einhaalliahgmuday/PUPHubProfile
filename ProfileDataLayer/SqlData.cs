@@ -8,7 +8,6 @@ namespace ProfileDataLayer;
 public class SqlData
 {
 	static string connectionString = "Server=localhost;Database=PUPHubProfile;Trusted_Connection=True;";
-	// static string connectionString = "Server=tcp:4.193.106.92,1433;Database=PUPHubProfile;User Id=sa;Password=PUPHUB123!";
         
 	static SqlConnection sqlConnection;
 
