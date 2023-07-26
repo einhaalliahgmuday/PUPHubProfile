@@ -7,6 +7,8 @@ namespace ProfileBusinessRules;
 public class ProfileRules
 {
 	ProfileDataService dataService = new ProfileDataService();
+	InMemorySISData sisData = new InMemorySISData();
+	InMemoryFollowData followData = new InMemoryFollowData();
 	// InMemoryProfileData profileData = new InMemoryProfileData();
 	
 	public List<ProfileAccount> GetAllProfileAccounts()
@@ -29,6 +31,73 @@ public class ProfileRules
 		}
 		
 		return foundAccount;
+	}
+	
+	public SISAccount GetSISAccountByStudentNo(string studentNo)
+	{
+		SISAccount foundAccount = new SISAccount();
+		var allSISAccounts = sisData.GetSISAccounts();
+		
+		foreach (var account in allSISAccounts)
+		{
+			if (account.studentNo == studentNo)
+			{
+				foundAccount = account;
+			}
+		}
+		
+		return foundAccount;
+	}
+	
+	public bool IsStudentExists(string studentNo)
+	{
+		bool IsAccountExists = false;
+		var allSISAccounts = sisData.GetSISAccounts();
+		
+		foreach (var account in allSISAccounts) 
+		{
+			if (account.studentNo == studentNo)
+			{
+				IsAccountExists = true;
+				break;
+			}
+		}
+		
+		return IsAccountExists;
+	}
+	
+	public List<ProfileAccount> GetFollowers(string username)
+	{
+		List<ProfileAccount> followers = new List<ProfileAccount>();
+		var allFollowData = followData.GetFollowData();
+		
+		foreach (var follow in allFollowData)
+		{
+			if (follow.following == username) 
+			{
+				var account = GetProfileAccountByUsername(follow.follower);
+				followers.Add(account);
+			}
+		}
+		
+		return followers;
+	}
+	
+	public List<ProfileAccount> GetFollowing(string username)
+	{
+		List<ProfileAccount> following = new List<ProfileAccount>();
+		var allFollowData = followData.GetFollowData();
+		
+		foreach (var follow in allFollowData)
+		{
+			if (follow.follower == username) 
+			{
+				var account = GetProfileAccountByUsername(follow.following);
+				following.Add(account);
+			}
+		}
+		
+		return following;
 	}
 	
 	public void EditProfileInformation(string username, string informationToUpdate, string updatedInformation)

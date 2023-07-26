@@ -15,14 +15,14 @@ namespace ProfileBusinessRules
 			return dataService.GetAllTheRegisteredAccounts();
 		}
 		
-		public RegisteredAccount GetRegisteredAccountByUsername(string username)
+		public RegisteredAccount GetRegisteredAccountByStudentNo(string studentNo)
 		{
 			var allRegisteredAccounts = GetAllRegisteredAccounts();
 			var foundAccount = new RegisteredAccount();
 			
 			foreach (var account in allRegisteredAccounts)
 			{
-				if (username == account.username)
+				if (studentNo == account.studentNo)
 				{
 					foundAccount = account;
 				}
@@ -70,10 +70,10 @@ namespace ProfileBusinessRules
 			dataService.RegisterTheAccount(registeredAccount);
 		}
 	
-		public void DeleteAccount(string username)
+		public void DeleteAccount(string studentNo)
 		{
-			var registeredAccount = GetRegisteredAccountByUsername(username);
-			var profileAccount = profileRules.GetProfileAccountByUsername(username);
+			var registeredAccount = GetRegisteredAccountByStudentNo(studentNo);
+			var profileAccount = profileRules.GetProfileAccountByUsername(registeredAccount.username);
 		   
 			if (registeredAccount != null && profileAccount != null)
 			{
@@ -82,7 +82,7 @@ namespace ProfileBusinessRules
 			}
 		}
 
-        public bool DoesUsernameAlreadyExists(string username)
+        public bool IsUsernameExists(string username)
         {
             bool doesUsernameAlreadyExists = false;
             var allRegisteredAccounts = GetAllRegisteredAccounts();
@@ -92,6 +92,7 @@ namespace ProfileBusinessRules
                 if (account.username == username)
                 {
                     doesUsernameAlreadyExists = true;
+					break;
                 }
             }
 
@@ -108,6 +109,7 @@ namespace ProfileBusinessRules
                 if (account.studentNo == studentNo)
                 {
                     isAccountRegistered = true;
+					break;
                 }
             }
 
