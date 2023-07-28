@@ -133,7 +133,7 @@ namespace Profile
 				}
 				else 
 				{
-					Console.WriteLine("Student not found, both in SIS and PUP Hub Profile.");
+					Console.WriteLine("Profile not found.");
 				}
 			}
 		}
