@@ -117,7 +117,7 @@ public class SqlData
 		
 		SqlCommand updateCommand;
 			
-		if (informationToUpdate == "genderPronouns")
+		if (informationToUpdate == "Gender Pronouns")
 		{
 			var updateStatement = "UPDATE ProfileAccounts SET GenderPronouns = @GenderPronouns WHERE Username = @Username";
 			updateCommand = new SqlCommand(updateStatement, sqlConnection);
@@ -127,7 +127,7 @@ public class SqlData
 			
 			updateCommand.ExecuteNonQuery();
 		}
-		else if (informationToUpdate == "rating")
+		else if (informationToUpdate == "Rating")
 		{
 			var updateStatement = "UPDATE ProfileAccounts SET Rating = @Rating WHERE Username = @Username";
 			updateCommand = new SqlCommand(updateStatement, sqlConnection);
@@ -137,7 +137,7 @@ public class SqlData
 			
 			updateCommand.ExecuteNonQuery();
 		}
-		else if (informationToUpdate == "bio")
+		else if (informationToUpdate == "Bio")
 		{
 			var updateStatement = "UPDATE ProfileAccounts SET Bio = @Bio WHERE Username = @Username";
 			updateCommand = new SqlCommand(updateStatement, sqlConnection);

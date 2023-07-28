@@ -9,11 +9,9 @@ public class ProfileRules
 	ProfileDataService dataService = new ProfileDataService();
 	InMemorySISData sisData = new InMemorySISData();
 	InMemoryFollowData followData = new InMemoryFollowData();
-	// InMemoryProfileData profileData = new InMemoryProfileData();
 	
 	public List<ProfileAccount> GetAllProfileAccounts()
 	{
-		// return profileData.GetProfileAccounts();
 		return dataService.GetAllTheProfileAccounts();
 	}
 	
@@ -122,11 +120,11 @@ public class ProfileRules
 	}
 	
 		
-	public List<ProfileAccount> Search(string search, List<ProfileAccount> list)
+	public List<ProfileAccount> Search(string search, List<ProfileAccount> searchIn)
 	{
 		List<ProfileAccount> searchedAccounts = new List<ProfileAccount>();
 		
-		foreach (var account in list)
+		foreach (var account in searchIn)
 		{
 			if (account.username.Contains(search)) 
 			{
@@ -135,5 +133,21 @@ public class ProfileRules
 		}
 		
 		return searchedAccounts;
+	}
+	
+	public bool IsAccountInTheList(string username, List<ProfileAccount> list)
+	{
+		bool isAccountInTheList = false;
+		
+		foreach (var account in list)
+		{
+			if (account.username == username)
+			{
+				isAccountInTheList = true;
+				break;
+			}
+		}
+		
+		return isAccountInTheList;
 	}
 }
