@@ -8,12 +8,12 @@ namespace Profile
 {
 	internal class Program
 	{	
+		public static ProfileRules profileRules = new ProfileRules();
+		public static RegistrationRules registrationRules = new RegistrationRules();
+	
 		public static RegisteredAccount user = new RegisteredAccount();
 		public static RegisteredAccount visitingProfile = new RegisteredAccount();
 		public static int input;
-	
-		public static ProfileRules profileRules = new ProfileRules();
-		public static RegistrationRules registrationRules = new RegistrationRules();
 		
 		public static void Main(string[] args)
 		{
@@ -33,7 +33,7 @@ namespace Profile
 			while(input != 0);
 		}
 		
-		static void ShowMainMenu() 
+		static void ShowMainMenu()
 		{
 			Console.WriteLine("----------MAIN MENU----------");
             Console.WriteLine("1 | List of Profile Accounts");
@@ -111,7 +111,7 @@ namespace Profile
 			}
 			else 
 			{
-				if (profileRules.IsStudentExists(studentNo))
+				if (registrationRules.IsStudentExists(studentNo))
 				{
 					Console.Write("Student is not yet registered. Register? (Y/N) ");
 					char inputYN = Convert.ToChar(Console.ReadLine());
@@ -151,7 +151,7 @@ namespace Profile
 			}
 			else
 			{
-				if (profileRules.IsStudentExists(studentNo))
+				if (registrationRules.IsStudentExists(studentNo))
 				{
 					do 
 					{
@@ -382,6 +382,7 @@ namespace Profile
 					if (searchedAccounts.Count == 0)
 					{
 						Console.WriteLine("No Results Found");
+						Console.WriteLine();
 					}
 					else 
 					{
@@ -403,6 +404,8 @@ namespace Profile
 								Console.WriteLine("{0}			{1}", sisAccount.name, account.username);
 							}
 						}
+						
+						Console.WriteLine();
 					}
 					
 					break;
@@ -427,6 +430,7 @@ namespace Profile
 					else
 					{
 						Console.WriteLine("Account not found.");
+						Console.WriteLine();
 						ViewSearch(searchIn);
 					}
 					
@@ -436,6 +440,7 @@ namespace Profile
 					break;
 				default:
 					Console.WriteLine("Please enter a valid input.");
+					Console.WriteLine();
 					
 					break;
 			}

@@ -8,6 +8,24 @@ namespace ProfileBusinessRules
         
         ProfileDataService dataService = new ProfileDataService();
 		ProfileRules profileRules = new ProfileRules();
+		InMemorySISData sisData = new InMemorySISData();
+		
+		public bool IsStudentExists(string studentNo)
+		{
+			bool IsAccountExists = false;
+			var allSISAccounts = sisData.GetSISAccounts();
+			
+			foreach (var account in allSISAccounts) 
+			{
+				if (account.studentNo == studentNo)
+				{
+					IsAccountExists = true;
+					break;
+				}
+			}
+			
+			return IsAccountExists;
+		}
 
         public List<RegisteredAccount> GetAllRegisteredAccounts()
 		{
@@ -45,6 +63,23 @@ namespace ProfileBusinessRules
 			
 			return foundAccount;
 		}
+		
+		public bool IsAccountRegistered(string studentNo)
+        {
+            bool isAccountRegistered = false;
+            var allRegisteredAccounts = GetAllRegisteredAccounts();
+
+            foreach (var account in allRegisteredAccounts)
+            {
+                if (account.studentNo == studentNo)
+                {
+                    isAccountRegistered = true;
+					break;
+                }
+            }
+
+            return isAccountRegistered;
+        }
 		
 		public void CreateAccount(string pstudentNo, string pusername, string pgenderPronouns, string pbio)
 		{
@@ -113,24 +148,5 @@ namespace ProfileBusinessRules
 				dataService.DeleteTheProfileAccount(profileAccount);
 			}
 		}
-
-        public bool IsAccountRegistered(string studentNo)
-        {
-            bool isAccountRegistered = false;
-            var allRegisteredAccounts = GetAllRegisteredAccounts();
-
-            foreach (var account in allRegisteredAccounts)
-            {
-                if (account.studentNo == studentNo)
-                {
-                    isAccountRegistered = true;
-					break;
-                }
-            }
-
-            return isAccountRegistered;
-        }
-
-
     }
 }

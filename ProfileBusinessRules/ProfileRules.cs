@@ -47,23 +47,6 @@ public class ProfileRules
 		return foundAccount;
 	}
 	
-	public bool IsStudentExists(string studentNo)
-	{
-		bool IsAccountExists = false;
-		var allSISAccounts = sisData.GetSISAccounts();
-		
-		foreach (var account in allSISAccounts) 
-		{
-			if (account.studentNo == studentNo)
-			{
-				IsAccountExists = true;
-				break;
-			}
-		}
-		
-		return IsAccountExists;
-	}
-	
 	public List<ProfileAccount> GetFollowers(string username)
 	{
 		List<ProfileAccount> followers = new List<ProfileAccount>();
